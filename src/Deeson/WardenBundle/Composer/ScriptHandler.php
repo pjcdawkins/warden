@@ -36,6 +36,9 @@ class ScriptHandler {
       while (strlen($password) < 8) {
         $password = $output->askAndHideAnswer('Please enter the admin password (minimum of 8 characters): ', '');
       }
+      if (empty($password)) {
+        throw new \InvalidArgumentException('An admin password is required');
+      }
 
       $output->write(' - Setting up the password file ...');
       $userProviderService->generateLoginFile($username, $password);
